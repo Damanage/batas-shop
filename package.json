@@ -1,10 +1,21 @@
 {
   "name": "shop",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Shop for Battery AutoShop",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finkvi/batas-shop.git"
+  },
+  "author": "Fink Viktor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/finkvi/batas-shop/issues"
+  },
+  "homepage": "https://github.com/finkvi/batas-shop#readme",
   "dependencies": {
     "body-parser": "~1.18.2",
     "console-stamp": "^0.2.6",
