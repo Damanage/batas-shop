@@ -1,0 +1,53 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+  padding: 0; 
+  margin: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.header div{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.header p {
+  margin: 3px;
+}
+
+.header h3 {
+  margin: 3px;
+}
+
+.header #location {
+  height: 18px;
+}
+
+#mapwrapper {
+    width: 100%; 
+    height: 100%;
+    padding: 0; 
+    margin: 0;
+}
+
+#map {
+    width: 95%; 
+    height: 80%; 
+    padding: 0; 
+    margin: 0;
+}
+
+a {
+    color: #04b; /* Цвет ссылки */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+}
+a:visited {
+    color: #04b; /* Цвет посещённой ссылки */
+}
+a:hover {
+    color: #f50000; /* Цвет ссылки при наведении на нее курсора мыши */
+}
