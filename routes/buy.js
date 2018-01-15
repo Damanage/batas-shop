@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
+var saleprocess = require("../common/sale");
+var sale = new saleprocess;
+
+/*
 const conf = require(process.env.CONF || '../../config.json');
 
 var db = require("../../admin/db/db")(conf.db);
 
-var ykassa = require("../ykassa/ykassa");
+var ykassa = require("../common/ykassa");
 var ya = new ykassa;
 
-router.get('/:id', function(req, res, next) {
+router.get('/old/:id', function(req, res, next) {
   if (req.params.id)
   {
     db.getPubProductById(req.params.id)
@@ -16,12 +20,6 @@ router.get('/:id', function(req, res, next) {
         //console.log(d);
         return ya.createPayment(d);
       })
-      /* Не будем хранить запросы на платежы, Яндекс касса делает это за нас в разрезе productid
-      .then (function (payment) {
-        //console.log(payment);
-        return db.savePaymentReq(payment);
-      })
-      */
       .then (function (data){
         //Анализируем ответ
         var url = conf.shopurl;
@@ -74,6 +72,20 @@ router.get('/:id', function(req, res, next) {
       message: 'There is no Product Id in request body'
     });
   }
+});
+
+*/
+
+router.get('/:id', function (req, res, next) {
+  sale.buyProduct(req.params.id)
+  .then (
+    function (d) {
+      res.status(200).send(d);  
+    },
+    function (e) {
+      res.status(403).send(e);
+    }
+  );
 });
 
 module.exports = router;

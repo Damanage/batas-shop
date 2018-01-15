@@ -10,8 +10,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var pubdata = require('./routes/pubdata');
+var getproduct = require('./routes/getproduct');
+
 var buy = require('./routes/buy');
-var take = require('./routes/take');
+//var take = require('./routes/take');
 var photo = require('./routes/photo');
 var kassa = require('./routes/kassa');
 
@@ -22,14 +24,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/take/:id', express.static(path.join(__dirname, 'public', 'take')));
 
 app.use('/buy', buy);
-app.use('/take', take);
 app.use('/photo', photo);
 app.use('/kassa', kassa);
-
-//API with JSON
-app.use('/api/pub', pubdata);
+app.use('/pub', pubdata);
+app.use('/getproduct', getproduct);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

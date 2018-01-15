@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
     db.getPubData()
       .then(
         function (d) {
-          res.send(d);
+          res.status(200).send(d);
         },
         function (e) {
           console.error(e);

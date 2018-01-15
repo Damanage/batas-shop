@@ -10,7 +10,6 @@ a {
   color: #00B7FF;
 }
 
-
 .header div{
   display: inline-block;
   vertical-align: top;
@@ -51,4 +50,9 @@ a:visited {
 }
 a:hover {
     color: #f50000; /* Цвет ссылки при наведении на нее курсора мыши */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }

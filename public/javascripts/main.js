@@ -59,7 +59,7 @@ $(document).ready(function() {
     
         $.ajax({
             method: "GET",
-            url: "/api/pub"
+            url: "/pub"
         }).done(function(data) {
             
             function templBody (rowid, value) {
