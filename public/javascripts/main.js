@@ -36,11 +36,59 @@ $(document).ready(function() {
     }
     
     function init () {
+        
+        var geoBtn = new ymaps.control.GeolocationControl({
+            data: {
+                image: 'images/baloon.jpg'
+            },
+            options: {
+                noPlacemark: false,
+                float: 'right',
+                maxWidth: 50
+            }
+        });
+        
+        // Пример 2.
+        // Создание кнопки с пользовательским макетом
+        var button = new ymaps.control.Button({
+                data: {
+                    //content: '<div class="myButton"> <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="none" stroke="#262626" stroke-width="2" d="M14.047 2.17l-2.91 15.382-2.21-3.79c-.457-.783-1.45-1.358-2.358-1.362l-4.389-.02L14.047 2.17z"></path></svg></div>',
+                    content: '<div class="myButton" style = "width: 100px; height: 100px"></div>',
+                    title: 'Определить моё местоположение'
+                },
+                options: {
+                    // layout: ymaps.templateLayoutFactory.createClass(
+                    //     // Если кнопка не нажата, к ней применится css-стиль 'myButton'
+                    //     // Если кнопка нажата, к ней применятся css-стили 'myButton' и 'myButtonSelected'.
+                    //     "<div class='myButton {% if state.selected %}myButtonSelected{% endif %}' title='{{ data.title }}'>" +
+                    //     "{{ data.content }}" +
+                    //     "</div>"
+                    // ),
+                    // Чтобы другие элементы управления корректно позиционировались по горизонтали,
+                    // нужно обязательно задать максимальную ширину для макета.
+                    maxWidth: 150,
+                    float: 'none', 
+                    position: {left: '5px', top: '5px'}
+                }});
+        //map.controls.add(button, { float: 'left', floatIndex: 0 });
+        
+        // Можно задать позиционирование относительно краев карты. В этом случае
+        // значение опции maxWidth не влияет на позиционирование
+        // элементов управления.
+        //map.controls.add(button, { float: 'none', position: {left: '5px', top: '5px'} });
+        
+        console.log (geoBtn);
+        
         myMap = new ymaps.Map('map', {
                 center: mypos,
-                zoom: 12,
-                controls: ["smallMapDefaultSet"]
+                zoom: 12
+                //,controls: ["smallMapDefaultSet"]
+                , controls: [
+                    geoBtn,
+                    button
+                ]
             }, {
+                autoFitToViewport: 'always',
                 searchControlProvider: 'yandex#search'
             }),
             objectManager = new ymaps.ObjectManager({
@@ -53,8 +101,8 @@ $(document).ready(function() {
     
         // Чтобы задать опции одиночным объектам и кластерам,
         // обратимся к дочерним коллекциям ObjectManager.
-        objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-        objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+        objectManager.objects.options.set('preset', 'islands#blueDotIcon');
+        objectManager.clusters.options.set('preset', 'islands#blueClusterIcons');
         myMap.geoObjects.add(objectManager);
     
         $.ajax({
@@ -63,23 +111,24 @@ $(document).ready(function() {
         }).done(function(data) {
             
             function templBody (rowid, value) {
-                var html = "<p>";
+                var html = "<font size=10><p>";
                     html += value.properties.product;
                     html += ": " + value.properties.comments;
-                    html += "</p>";
-                    html += "<p>" 
+                    html += "</p>" + "</font>";
+                    html += "<font size=10><p>" 
                         + "<input id='" + rowid + "' type = 'button' class = 'buyButton' value = 'Купить' onclick = buyProduct(this.id)>"
-                        + "</p>";
+                        + "</p></font>";
                 return html;
             }
             
             function templHeader (value) {
-                var html = "<font size=3><b>" 
+                var html = "<font size=10><b>" 
                         + value.properties.product 
-                        +"</b></font> по цене " 
+                        +"</b> по цене " 
                         + value.properties.price 
                         + " " 
-                        + value.properties.currency;
+                        + value.properties.currency
+                        + "</font>";
                 
                 return html;
             }
@@ -119,13 +168,22 @@ $(document).ready(function() {
             }
 
             objectManager.add(r);
+            
+            ymaps.geolocation.get({
+                provider: 'auto',
+                mapStateAutoApply: false
+            }).then(function (result) {
+                myMap.geoObjects.add(result.geoObjects);
+            });
         });
     }
     
     function fullReload () {
         
         
-        var chain = geoFindMe();
+        //var chain = geoFindMe();
+        
+        var chain = Promise.resolve([-8.354994, 115.115268]);
     
         chain.then (
             function (pos) {
@@ -133,6 +191,7 @@ $(document).ready(function() {
                 ymaps.ready(init);
             }
         );
+        
     }
     
     fullReload();

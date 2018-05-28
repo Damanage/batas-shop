@@ -1,45 +1,54 @@
 html, body {
   height: 100%;
-  min-height: 100%;
   padding: 0; 
   margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
 
-
-.header div{
+div{
   display: inline-block;
+}
+
+#header {
   vertical-align: top;
+  height: 145px
 }
 
-.header p {
+#logo {
+  width: 151px;
+}
+
+#firsttext {
+  font: 22px Helvetica, Arial, sans-serif;
+}
+
+#header p {
   margin: 3px;
 }
 
-.header h3 {
+#header h3 {
   margin: 3px;
 }
 
-.header #location {
+#header #location {
   height: 18px;
 }
 
-#mapwrapper {
+#map {
     width: 100%; 
-    height: 100%;
-    padding: 0; 
-    margin: 0;
+    height: calc(100% - 150px); 
+    padding: 0px; 
+    margin: 0px;
+    vertical-align: bottom;
 }
 
-#map {
-    width: 95%; 
-    height: 80%; 
-    padding: 0; 
-    margin: 0;
+.myButton {
+  color: red;
+  font-size: 30px;
 }
 
 a {
